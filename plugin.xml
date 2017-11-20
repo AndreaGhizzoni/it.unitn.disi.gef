@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="it.disi.unitn.gef.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="RCP Perspective"
+            class="it.disi.unitn.gef.Perspective"
+            id="it.disi.unitn.gef.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="it.disi.unitn.gef.MyGraphicalEditor"
+            contributorClass="it.disi.unitn.gef.MyGraphicalEditorActionBarContributor"
+            default="true"
+            icon="icons/alt_launcher.ico"
+            id="gef.mygraphicaleditor"
+            name="MyGraphicalEditor">
+      </editor>
+   </extension>
+
+</plugin>
