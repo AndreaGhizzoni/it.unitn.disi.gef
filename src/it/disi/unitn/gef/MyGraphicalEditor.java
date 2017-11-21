@@ -2,12 +2,16 @@ package it.disi.unitn.gef;
 
 import java.util.ArrayList;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.LightweightSystem;
+import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.parts.ScrollableThumbnail;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.KeyHandler;
 import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
@@ -20,6 +24,9 @@ import org.eclipse.gef.ui.parts.GraphicalEditor;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IActionBars;
@@ -160,6 +167,8 @@ public class MyGraphicalEditor extends GraphicalEditor {
 	
 	protected class OutlinePage extends ContentOutlinePage {
 		private SashForm sash;
+		private ScrollableThumbnail thumbnail;
+		private DisposeListener disposeListener;
 
 		public OutlinePage() { super(new TreeViewer()); }
 
@@ -173,6 +182,26 @@ public class MyGraphicalEditor extends GraphicalEditor {
 			getViewer().setEditPartFactory(new AppTreeEditPartFactory());
 			getViewer().setContents(model);
 			getSelectionSynchronizer().addViewer(getViewer());
+			
+			// Creation of miniature.
+			LightweightSystem lws = new LightweightSystem( new Canvas(sash, SWT.BORDER) );
+			thumbnail = new ScrollableThumbnail(
+				(Viewport) ((ScalableRootEditPart) getGraphicalViewer().getRootEditPart()).getFigure()
+			);
+			thumbnail.setSource(
+				((ScalableRootEditPart) getGraphicalViewer().getRootEditPart()).getLayer(LayerConstants.PRINTABLE_LAYERS)
+			);
+			lws.setContents(thumbnail);
+			disposeListener = new DisposeListener() {
+				@Override
+				public void widgetDisposed(DisposeEvent e) {
+					if (thumbnail != null) { 
+						thumbnail.deactivate(); 
+						thumbnail = null; 
+					}
+				}
+			};
+			getGraphicalViewer().getControl().addDisposeListener(disposeListener);
 		}
 
 		@Override
@@ -201,6 +230,8 @@ public class MyGraphicalEditor extends GraphicalEditor {
 		@Override
 		public void dispose() {
 			getSelectionSynchronizer().removeViewer(getViewer());
+			if (getGraphicalViewer().getControl() != null && !getGraphicalViewer().getControl().isDisposed())
+				getGraphicalViewer().getControl().removeDisposeListener(disposeListener);
 			super.dispose();
 		}
 	}
