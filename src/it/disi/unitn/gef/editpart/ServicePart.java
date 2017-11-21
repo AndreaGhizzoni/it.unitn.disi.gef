@@ -7,6 +7,7 @@ import org.eclipse.gef.EditPolicy;
 
 import it.disi.unitn.gef.editpolicies.AppDeletePolicy;
 import it.disi.unitn.gef.editpolicies.AppEditLayoutPolicy;
+import it.disi.unitn.gef.editpolicies.AppRenamePolicy;
 import it.disi.unitn.gef.figure.ServiceFigure;
 import it.disi.unitn.gef.model.Node;
 import it.disi.unitn.gef.model.Service;

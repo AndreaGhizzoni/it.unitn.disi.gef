@@ -51,7 +51,7 @@ public class RenameWizard extends Wizard {
 		return true;
 	}
 
-	public String getRenameValue() {
+	public String getRenamedValue() {
 		return newName;
 	}
 }

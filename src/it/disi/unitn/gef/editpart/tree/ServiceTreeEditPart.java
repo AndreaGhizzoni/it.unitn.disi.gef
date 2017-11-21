@@ -7,8 +7,8 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import it.disi.unitn.gef.editpart.AppRenamePolicy;
 import it.disi.unitn.gef.editpolicies.AppDeletePolicy;
+import it.disi.unitn.gef.editpolicies.AppRenamePolicy;
 import it.disi.unitn.gef.model.Node;
 import it.disi.unitn.gef.model.Service;
 

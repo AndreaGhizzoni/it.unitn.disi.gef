@@ -1,4 +1,4 @@
-package it.disi.unitn.gef.editpart;
+package it.disi.unitn.gef.editpolicies;
 
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
