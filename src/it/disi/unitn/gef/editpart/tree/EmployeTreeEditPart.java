@@ -26,7 +26,6 @@ public class EmployeTreeEditPart extends AppAbstractTreeEditPart {
 		setWidgetImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_DEF_VIEW));
 	}
 
-	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(Node.PROPERTY_ADD)) refreshChildren();
 		if (evt.getPropertyName().equals(Node.PROPERTY_REMOVE)) refreshChildren();

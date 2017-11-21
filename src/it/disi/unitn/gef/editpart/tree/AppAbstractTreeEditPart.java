@@ -6,11 +6,13 @@ import it.disi.unitn.gef.model.Node;
 
 public abstract class AppAbstractTreeEditPart extends AbstractTreeEditPart implements PropertyChangeListener {
 
+	@Override
 	public void activate() {
 		super.activate();
 		((Node) getModel()).addPropertyChangeListener(this);
 	}
 
+	@Override
 	public void deactivate() {
 		((Node) getModel()).removePropertyChangeListener(this);
 		super.deactivate();

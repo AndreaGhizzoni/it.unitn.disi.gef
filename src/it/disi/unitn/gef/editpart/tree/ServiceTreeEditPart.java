@@ -30,7 +30,6 @@ public class ServiceTreeEditPart extends AppAbstractTreeEditPart {
 		setWidgetImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_ELEMENT));
 	}
 	
-	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(Node.PROPERTY_ADD)) refreshChildren();
 		if(evt.getPropertyName().equals(Node.PROPERTY_REMOVE)) refreshChildren();
