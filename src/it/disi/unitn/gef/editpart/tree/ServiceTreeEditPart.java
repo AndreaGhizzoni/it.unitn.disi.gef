@@ -7,6 +7,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
+import it.disi.unitn.gef.editpart.AppRenamePolicy;
 import it.disi.unitn.gef.editpolicies.AppDeletePolicy;
 import it.disi.unitn.gef.model.Node;
 import it.disi.unitn.gef.model.Service;
@@ -21,6 +22,7 @@ public class ServiceTreeEditPart extends AppAbstractTreeEditPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.COMPONENT_ROLE,new AppDeletePolicy());
+		installEditPolicy(EditPolicy.NODE_ROLE, new AppRenamePolicy() );
 	}
 
 	@Override
@@ -33,5 +35,6 @@ public class ServiceTreeEditPart extends AppAbstractTreeEditPart {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals(Node.PROPERTY_ADD)) refreshChildren();
 		if(evt.getPropertyName().equals(Node.PROPERTY_REMOVE)) refreshChildren();
+		if (evt.getPropertyName().equals(Node.PROPERTY_RENAME)) refreshVisuals();
 	}
 }

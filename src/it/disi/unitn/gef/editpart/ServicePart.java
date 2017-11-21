@@ -23,8 +23,10 @@ public class ServicePart extends AppAbstractEditPart {
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new AppEditLayoutPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new AppDeletePolicy());
+		installEditPolicy(EditPolicy.NODE_ROLE, new AppRenamePolicy() );
 	}
 
+	@Override
 	protected void refreshVisuals() {
 		ServiceFigure figure = (ServiceFigure) getFigure();
 		Service model = (Service) getModel();
@@ -33,14 +35,15 @@ public class ServicePart extends AppAbstractEditPart {
 		figure.setLayout(model.getLayout());
 	}
 
+	@Override
 	public List<Node> getModelChildren() {
 		return ((Service) getModel()).getChildrenArray();
 	}
 
-	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(Node.PROPERTY_LAYOUT)) refreshVisuals();
 		if (evt.getPropertyName().equals(Node.PROPERTY_ADD)) refreshChildren();
 		if (evt.getPropertyName().equals(Node.PROPERTY_REMOVE)) refreshChildren();
+		if (evt.getPropertyName().equals(Node.PROPERTY_RENAME)) refreshVisuals();
 	}
 }

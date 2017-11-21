@@ -35,5 +35,9 @@ public class AppContextMenuProvider extends ContextMenuProvider {
 			GEFActionConstants.GROUP_EDIT, 
 			actionRegistry.getAction(ActionFactory.DELETE.getId())
 		);
+		menu.appendToGroup(
+			GEFActionConstants.GROUP_EDIT,
+			actionRegistry.getAction(ActionFactory.RENAME.getId())
+		);
 	}
 }
