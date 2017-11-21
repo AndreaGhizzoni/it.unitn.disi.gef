@@ -1,4 +1,4 @@
-package it.disi.unitn.gef.commands;
+package it.disi.unitn.gef.commands.layout;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;

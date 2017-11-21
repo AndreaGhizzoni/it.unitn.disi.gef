@@ -6,9 +6,9 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.requests.CreateRequest;
 
-import it.disi.unitn.gef.commands.AbstractLayoutCommand;
-import it.disi.unitn.gef.commands.EmployeChangeLayoutCommand;
-import it.disi.unitn.gef.commands.ServiceChangeLayoutCommand;
+import it.disi.unitn.gef.commands.layout.AbstractLayoutCommand;
+import it.disi.unitn.gef.commands.layout.EmployeChangeLayoutCommand;
+import it.disi.unitn.gef.commands.layout.ServiceChangeLayoutCommand;
 import it.disi.unitn.gef.editpart.EmployePart;
 import it.disi.unitn.gef.editpart.ServicePart;
 
