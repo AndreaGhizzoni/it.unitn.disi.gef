@@ -8,6 +8,7 @@ import org.eclipse.gef.EditPolicy;
 
 import it.disi.unitn.gef.editpolicies.AppDeletePolicy;
 import it.disi.unitn.gef.editpolicies.AppEditLayoutPolicy;
+import it.disi.unitn.gef.editpolicies.AppRenamePolicy;
 import it.disi.unitn.gef.figure.EmployeFigure;
 import it.disi.unitn.gef.model.Employe;
 import it.disi.unitn.gef.model.Node;
@@ -24,6 +25,7 @@ public class EmployePart extends AppAbstractEditPart {
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new AppEditLayoutPolicy());
 		installEditPolicy(EditPolicy.COMPONENT_ROLE, new AppDeletePolicy());
+		installEditPolicy(EditPolicy.NODE_ROLE, new AppRenamePolicy() );
 	}
 
 	protected void refreshVisuals() {
@@ -41,5 +43,6 @@ public class EmployePart extends AppAbstractEditPart {
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals(Node.PROPERTY_LAYOUT)) refreshVisuals();
+		if (evt.getPropertyName().equals(Node.PROPERTY_RENAME)) refreshVisuals();
 	}
 }
