@@ -7,23 +7,16 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.graphics.Color;
 
 public class ServiceFigure extends Figure {
+	
 	private Label labelName = new Label();
 	private Label labelEtage = new Label();
 
 	public ServiceFigure() {
 		setLayoutManager( new XYLayout() );
-		/** Just for Fun :) **/
-		setForegroundColor(new Color(null, 
-				(new Double(Math.random() * 128)).intValue(),
-				(new Double(Math.random() * 128)).intValue(), 
-				(new Double(Math.random() * 128)).intValue()));
-		setBackgroundColor(new Color(null, 
-				(new Double(Math.random() * 128)).intValue() + 128,
-				(new Double(Math.random() * 128)).intValue() + 128,
-				(new Double(Math.random() * 128)).intValue() + 128));
+		setForegroundColor(ColorConstants.black);
+		
 		setBorder(new LineBorder(1));
 		setOpaque(true);
 

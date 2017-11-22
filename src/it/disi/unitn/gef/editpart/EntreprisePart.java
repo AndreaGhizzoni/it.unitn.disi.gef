@@ -40,5 +40,6 @@ public class EntreprisePart extends AppAbstractEditPart{
 		if (evt.getPropertyName().equals(Node.PROPERTY_LAYOUT)) refreshVisuals();
 		if (evt.getPropertyName().equals(Node.PROPERTY_ADD)) refreshChildren();
 		if (evt.getPropertyName().equals(Node.PROPERTY_REMOVE)) refreshChildren();
+		if (evt.getPropertyName().equals(Entreprise.PROPERTY_CAPITAL)) refreshChildren();
 	}
 }

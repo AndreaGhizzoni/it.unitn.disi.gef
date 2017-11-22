@@ -38,7 +38,9 @@ public class RenameAction extends SelectionAction {
 		reqData.put("newName", name);
 		Request renameReq = new Request("rename");
 		renameReq.setExtendedData(reqData);
-		EditPart selectedEditPart = (EditPart)getSelectedObjects().get(0);
+		List selectedObjects= getSelectedObjects();
+		if( selectedObjects.isEmpty() ) return null;
+		EditPart selectedEditPart = (EditPart)selectedObjects.get(0);
 		return selectedEditPart.getCommand(renameReq);
 	}
 	
