@@ -10,16 +10,12 @@ public class AppRenamePolicy extends AbstractEditPolicy {
 	
 	@Override
 	public Command getCommand(Request request) {
-		if (request.getType().equals("rename"))
-			return createRenameCommand(request);
+		if (request.getType().equals("rename")){
+			RenameCommand command = new RenameCommand();
+			command.setModel(getHost().getModel());
+			command.setNewName((String)request.getExtendedData().get("newName"));
+			return command;
+		}
 		return null;
 	}
-
-	protected Command createRenameCommand(Request renameRequest) {
-		RenameCommand command = new RenameCommand();
-		command.setModel(getHost().getModel());
-		command.setNewName((String)renameRequest.getExtendedData().get("newName"));
-		return command;
-	}
-
 }

@@ -30,10 +30,7 @@ public class RenameAction extends SelectionAction {
 	}
 	
 	protected boolean calculateEnabled() {
-		Command cmd = createRenameCommand("");
-		if (cmd == null)
-			return false;
-		return true;
+		return createRenameCommand("") != null;
 	}
 	
 	public Command createRenameCommand(String name) {
@@ -41,9 +38,8 @@ public class RenameAction extends SelectionAction {
 		reqData.put("newName", name);
 		Request renameReq = new Request("rename");
 		renameReq.setExtendedData(reqData);
-		EditPart object = (EditPart)getSelectedObjects().get(0);
-		Command cmd = object.getCommand(renameReq);
-		return cmd;
+		EditPart selectedEditPart = (EditPart)getSelectedObjects().get(0);
+		return selectedEditPart.getCommand(renameReq);
 	}
 	
 	@Override
