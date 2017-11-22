@@ -92,6 +92,10 @@ public class Node implements IAdaptable {
 	public void removePropertyChangeListener(PropertyChangeListener listener) {
 		listeners.removePropertyChangeListener(listener);
 	}
+	
+	public boolean contains(Node child) {
+		return children.contains(child);
+	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override

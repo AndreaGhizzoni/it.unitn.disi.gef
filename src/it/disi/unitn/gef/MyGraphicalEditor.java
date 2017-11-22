@@ -17,12 +17,18 @@ import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.MouseWheelZoomHandler;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
+import org.eclipse.gef.palette.CreationToolEntry;
+import org.eclipse.gef.palette.MarqueeToolEntry;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.PaletteSeparator;
+import org.eclipse.gef.palette.SelectionToolEntry;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.ContentOutlinePage;
-import org.eclipse.gef.ui.parts.GraphicalEditor;
+import org.eclipse.gef.ui.parts.GraphicalEditorWithPalette;
 import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -43,8 +49,9 @@ import it.disi.unitn.gef.editpart.tree.AppTreeEditPartFactory;
 import it.disi.unitn.gef.model.Employe;
 import it.disi.unitn.gef.model.Entreprise;
 import it.disi.unitn.gef.model.Service;
+import it.disi.unitn.gef.palette.NodeCreationFactory;
 
-public class MyGraphicalEditor extends GraphicalEditor {
+public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 
 	public static final String ID = "gef.mygraphicaleditor";
 	private Entreprise model;
@@ -168,6 +175,30 @@ public class MyGraphicalEditor extends GraphicalEditor {
 	}
 	
 	@Override
+	protected PaletteRoot getPaletteRoot() {
+		PaletteRoot root = new PaletteRoot();
+		PaletteGroup manipGroup = new PaletteGroup("object manipulation");
+		root.add(manipGroup);
+
+		SelectionToolEntry selectionToolEntry = new SelectionToolEntry();
+		manipGroup.add(selectionToolEntry);
+		manipGroup.add(new MarqueeToolEntry());
+		
+		root.add( new PaletteSeparator() );
+
+		PaletteGroup instGroup = new PaletteGroup("object creation");
+		root.add(instGroup);
+		instGroup.add(
+			new CreationToolEntry("Service", "Creation of Service",
+			new NodeCreationFactory(Service.class),
+			null, null)
+		);
+
+		root.setDefaultEntry(selectionToolEntry);
+		return root;
+	}
+	
+	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if (type == ZoomManager.class)
 			return ((ScalableRootEditPart) getGraphicalViewer().getRootEditPart()).getZoomManager();
@@ -255,4 +286,6 @@ public class MyGraphicalEditor extends GraphicalEditor {
 			super.dispose();
 		}
 	}
+
+	
 }

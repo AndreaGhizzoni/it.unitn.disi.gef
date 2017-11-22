@@ -12,6 +12,9 @@ public class ServiceFigure extends Figure {
 	
 	private Label labelName = new Label();
 	private Label labelEtage = new Label();
+	
+	public static final int SERVICE_FIGURE_DEFWIDTH = 250;
+	public static final int SERVICE_FIGURE_DEFHEIGHT = 150;
 
 	public ServiceFigure() {
 		setLayoutManager( new XYLayout() );

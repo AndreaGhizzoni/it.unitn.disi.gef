@@ -22,7 +22,7 @@ public class NodePropertySource implements IPropertySource {
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		ArrayList<IPropertyDescriptor> properties = new ArrayList<IPropertyDescriptor>();
 
-		properties.add(new PropertyDescriptor(Node.PROPERTY_RENAME, "Name"));
+		properties.add(new TextPropertyDescriptor(Node.PROPERTY_RENAME, "Name"));
 		if (node instanceof Service) {
 			properties.add(new ColorPropertyDescriptor(Service.PROPERTY_COLOR, "Color"));
 			properties.add(new TextPropertyDescriptor(Service.PROPERTY_FLOOR, "Etage"));
