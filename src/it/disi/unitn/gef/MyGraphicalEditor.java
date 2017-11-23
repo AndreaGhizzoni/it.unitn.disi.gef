@@ -15,9 +15,10 @@ import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.MouseWheelHandler;
 import org.eclipse.gef.MouseWheelZoomHandler;
+import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.editparts.ScalableRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
-import org.eclipse.gef.palette.CreationToolEntry;
+import org.eclipse.gef.palette.CombinedTemplateCreationEntry;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -44,6 +45,9 @@ import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 import it.disi.unitn.gef.actions.RenameAction;
+import it.disi.unitn.gef.actions.copyandpaste.CopyNodeAction;
+import it.disi.unitn.gef.actions.copyandpaste.PasteNodeAction;
+import it.disi.unitn.gef.draganddrop.MyTemplateTransferDropTargetListener;
 import it.disi.unitn.gef.editpart.AppEditPartFactory;
 import it.disi.unitn.gef.editpart.tree.AppTreeEditPartFactory;
 import it.disi.unitn.gef.model.Employe;
@@ -162,6 +166,7 @@ public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 		GraphicalViewer viewer = getGraphicalViewer();
 		model = CreateEntreprise();
 		viewer.setContents( model );
+		viewer.addDropTargetListener(new MyTemplateTransferDropTargetListener(viewer));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -172,6 +177,19 @@ public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 		IAction action = new RenameAction(this);
 		registry.registerAction(action);
 		getSelectionActions().add(action.getId());
+		
+		action = new CopyNodeAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
+		action = new PasteNodeAction(this);
+		registry.registerAction(action);
+		getSelectionActions().add(action.getId());
+	}
+	
+	@Override
+	protected void initializePaletteViewer() {
+		super.initializePaletteViewer();
+		getPaletteViewer().addDragSourceListener(new TemplateTransferDragSourceListener(getPaletteViewer()));
 	}
 	
 	@Override
@@ -188,12 +206,12 @@ public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 
 		PaletteGroup instGroup = new PaletteGroup("object creation");
 		root.add(instGroup);
-		instGroup.add(new CreationToolEntry(
+		instGroup.add(new CombinedTemplateCreationEntry(
 			"Service", "Creation of Service",
 			new NodeCreationFactory(Service.class),
 			null, null)
 		);
-		instGroup.add(new CreationToolEntry(
+		instGroup.add(new CombinedTemplateCreationEntry(
 			"Employe", "Creation of Employe", 
 			new NodeCreationFactory(Employe.class), 
 			null, null)
@@ -255,6 +273,17 @@ public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 				}
 			};
 			getGraphicalViewer().getControl().addDisposeListener(disposeListener);
+			
+			IActionBars bars = getSite().getActionBars();
+			ActionRegistry ar = getActionRegistry();
+			bars.setGlobalActionHandler(
+				ActionFactory.COPY.getId(),
+				ar.getAction(ActionFactory.COPY.getId())
+			);
+			bars.setGlobalActionHandler(
+				ActionFactory.PASTE.getId(),
+				ar.getAction(ActionFactory.PASTE.getId())
+			);
 		}
 
 		@Override
