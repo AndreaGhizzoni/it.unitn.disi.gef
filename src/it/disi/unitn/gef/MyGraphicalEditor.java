@@ -188,9 +188,14 @@ public class MyGraphicalEditor extends GraphicalEditorWithPalette {
 
 		PaletteGroup instGroup = new PaletteGroup("object creation");
 		root.add(instGroup);
-		instGroup.add(
-			new CreationToolEntry("Service", "Creation of Service",
+		instGroup.add(new CreationToolEntry(
+			"Service", "Creation of Service",
 			new NodeCreationFactory(Service.class),
+			null, null)
+		);
+		instGroup.add(new CreationToolEntry(
+			"Employe", "Creation of Employe", 
+			new NodeCreationFactory(Employe.class), 
 			null, null)
 		);
 

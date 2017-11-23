@@ -11,6 +11,9 @@ public class EmployeFigure extends Figure {
 
 	private Label labelName = new Label();
 	private Label labelFirstName = new Label();
+	
+	public static final int EMPLOYE_FIGURE_DEFWIDTH = 100;
+	public static final int EMPLOYE_FIGURE_DEFHEIGHT = 100;
 
 	public EmployeFigure() {
 		setLayoutManager( new ToolbarLayout() );

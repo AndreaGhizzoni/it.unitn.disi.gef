@@ -2,6 +2,7 @@ package it.disi.unitn.gef.palette;
 
 import org.eclipse.gef.requests.CreationFactory;
 
+import it.disi.unitn.gef.model.Employe;
 import it.disi.unitn.gef.model.Service;
 
 public class NodeCreationFactory implements CreationFactory {
@@ -21,6 +22,11 @@ public class NodeCreationFactory implements CreationFactory {
 			s.setName("NewService");
 			s.setEtage(42);
 			return s;
+		}else if( this.template == Employe.class ){
+			Employe e = new Employe();
+			e.setName("NewEmploye");
+			e.setPrenom("Prenom");
+			return e;
 		}
 		return null;
 	}
